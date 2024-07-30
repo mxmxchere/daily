@@ -10,6 +10,7 @@
 
 <body>
     <h1>Garden Linux Daily Dashboard</h1>
+    <div class="days" id="gl-days"></div>
     <div class="dashboard">
         <div id="daily-info-28837699" class="label"><a
                 href="https://github.com/gardenlinux/gardenlinux/actions/workflows/nightly.yml">Garden Linux Nightly</a>
@@ -70,7 +71,8 @@
                 }
             }
         }
-        getRun()
+        getRun();
+        document.getElementById('gl-days').innerText = "GL " + Math.round((new Date().getTime() - new Date('2020-03-31').getTime()) / (1000 * 60 * 60 * 24))
     </script>
 </body>
 
