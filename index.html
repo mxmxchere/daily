@@ -72,7 +72,7 @@
             }
         }
         getRun();
-        document.getElementById('gl-days').innerText = "GL " + Math.round((new Date().getTime() - new Date('2020-03-31').getTime()) / (1000 * 60 * 60 * 24))
+        document.getElementById('gl-days').innerText = "GL " + (Math.round((new Date().getTime() - new Date('2020-03-31').getTime()) / (1000 * 60 * 60 * 24)) - 1)
     </script>
 </body>
 
