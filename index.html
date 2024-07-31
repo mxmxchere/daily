@@ -71,8 +71,19 @@
                 }
             }
         }
+        function getGlDays() {
+            var today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const initialDay = new Date('2020-03-31');
+
+            const todayTime = today.getTime();
+            const initialTime = initialDay.getTime();
+
+            return Math.round((todayTime - initialTime) / (1000 * 60 * 60 * 24));
+        }
+
         getRun();
-        document.getElementById('gl-days').innerText = "GL " + (Math.round((new Date().getTime() - new Date('2020-03-31').getTime()) / (1000 * 60 * 60 * 24)) - 1)
+        document.getElementById('gl-days').innerText = "GL " + getGlDays()
     </script>
 </body>
 
