@@ -25,6 +25,10 @@
                 href="https://github.com/gardenlinux/repo/actions/workflows/build.yml">Repo Build</a>
         </div>
 
+        <div id="packages">
+            <table id="packages-table">
+            </table>
+        </div>
     </div>
 
     <script>
@@ -82,8 +86,30 @@
             return Math.round((todayTime - initialTime) / (1000 * 60 * 60 * 24));
         }
 
+        async function fillPackageTable() {
+            let table = document.getElementById("packages-table");
+            let file = "packages/" + getGlDays() + ".json";
+            const response = await fetch(file);
+            const packages = await response.json();
+            for (let pkg in packages) {
+                let row = table.insertRow(0);
+                row.classList.add(packages[pkg].Status);
+
+                let a = document.createElement('a');
+                a.innerHTML = pkg;
+                a.href = "https://github.com/gardenlinux/" + pkg + "/actions/workflows/build.yml";
+
+                let pkgName = row.insertCell(0);
+                pkgName.appendChild(a);
+
+                let pkgStatusTime = row.insertCell(1);
+                pkgStatusTime.innerHTML = packages[pkg].Time;
+            }
+        }
+
         getRun();
-        document.getElementById('gl-days').innerText = "GL " + getGlDays()
+        document.getElementById('gl-days').innerText = "GL " + getGlDays();
+        fillPackageTable();
     </script>
 </body>
 
