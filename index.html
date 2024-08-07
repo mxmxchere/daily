@@ -25,6 +25,18 @@
                 href="https://github.com/gardenlinux/repo/actions/workflows/build.yml">Repo Build</a>
         </div>
 
+        <div id="legend">
+            <table id="legend-table">
+                <tr>
+                    <td class="success">success</td>
+                    <td class="progress">progress</td>
+                    <td class="stale">stale</td>
+                    <td class="failure">failure</td>
+                    <td>other</td>
+                </tr>
+            </table>
+        </div>
+
         <div id="packages">
             <table id="packages-table">
             </table>
@@ -98,10 +110,10 @@
                 let a = document.createElement('a');
                 a.innerHTML = pkg;
                 a.href = "https://github.com/gardenlinux/" + pkg + "/actions/workflows/build.yml";
-
+                
                 let pkgName = row.insertCell(0);
                 pkgName.appendChild(a);
-
+                
                 let pkgStatusTime = row.insertCell(1);
                 pkgStatusTime.innerHTML = packages[pkg].Time;
             }
