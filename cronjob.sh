@@ -9,7 +9,7 @@ END_SECONDS=$(date -d "$TODAY" +%s)
 GARDENLINUX_VERSION=$(( (END_SECONDS - START_SECONDS) / 86400 ))
 
 cd package-aggregator || exit 1
-go run . -o ../packages/$GARDENLINUX_VERSION.json -exclude package-build
+go run . -o ../public_html/packages/$GARDENLINUX_VERSION.json -exclude package-build
 cd ..|| exit 2
 
 git config --global user.email "package_aggregator@gardenlinux.io"
