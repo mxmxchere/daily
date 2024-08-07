@@ -44,12 +44,12 @@ func main() {
 
 	out, err := json.Marshal(packageStates)
 	if err != nil {
-		slog.Error("Error marshalling json", err, err.Error())
+		slog.Error("Error marshalling json", "err", err.Error())
 	}
 
 	err = os.WriteFile(outFileName, out, 0644)
 	if err != nil {
-		slog.Error("Error writing file", err, err.Error())
+		slog.Error("Error writing file", "err", err.Error())
 		os.Exit(1)
 	}
 }
