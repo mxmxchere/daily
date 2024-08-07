@@ -27,6 +27,8 @@ type packageState struct {
 	// Time is the Time at which this tool tried to grab data from GitHub
 	// in case there is a workflow run that contains more precise data (UpdatedAt), that timestamp is used
 	Time string `json:"Time"`
+	// Name is the name of the repository
+	Name string `json:"Name"`
 }
 
 func main() {
@@ -36,10 +38,10 @@ func main() {
 
 	repoNames := getPackageRepoNames(client, ctx)
 
-	packageStates := make(map[string]packageState)
+	var packageStates []packageState
 
 	for _, repoName := range repoNames {
-		packageStates[repoName] = getPackageStateByRepoName(repoName, client, ctx)
+		packageStates = append(packageStates, getPackageStateByRepoName(repoName, client, ctx))
 	}
 
 	out, err := json.Marshal(packageStates)
@@ -57,7 +59,7 @@ func main() {
 func getPackageStateByRepoName(repoName string, client *github.Client, ctx context.Context) packageState {
 	now := time.Now()
 	nowString, _ := now.MarshalText() // I trust that Time.Now() returns something parsable
-	ps := packageState{Time: string(nowString)}
+	ps := packageState{Time: string(nowString), Name: repoName}
 
 	wfRuns, _, err := client.Actions.ListWorkflowRunsByFileName(ctx, orga, repoName, workflowfile, &github.ListWorkflowRunsOptions{})
 	if err != nil {
