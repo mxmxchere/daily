@@ -8,7 +8,7 @@ END_SECONDS=$(date -d "$TODAY" +%s)
 
 GARDENLINUX_VERSION=$(( (END_SECONDS - START_SECONDS) / 86400 ))
 
-cd package_aggregator || exit 1
+cd package-aggregator || exit 1
 go run . -o ../packages/$GARDENLINUX_VERSION.json -exclude package-build
 popd || exit 2
 
