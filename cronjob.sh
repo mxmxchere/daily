@@ -14,6 +14,6 @@ cd ..|| exit 2
 
 git config --global user.email "package_aggregator@gardenlinux.io"
 git config --global user.name "package_aggregator"
-git add packages/$GARDENLINUX_VERSION.json
+git add public_html/packages/$GARDENLINUX_VERSION.json
 git commit -m "Package status for Gardenlinux Day $GARDENLINUX_VERSION"
 git push -u origin main
