@@ -44,7 +44,7 @@ func main() {
 		packageStates = append(packageStates, getPackageStateByRepoName(repoName, client, ctx))
 	}
 
-	out, err := json.Marshal(packageStates)
+	out, err := json.MarshalIndent(packageStates, "", " ")
 	if err != nil {
 		slog.Error("Error marshalling json", "err", err.Error())
 	}
