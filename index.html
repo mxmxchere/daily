@@ -103,19 +103,30 @@
             let file = "packages/" + getGlDays() + ".json";
             const response = await fetch(file);
             const packages = await response.json();
-            for (let pkg in packages) {
-                let row = table.insertRow(0);
-                row.classList.add(packages[pkg].Status);
 
-                let a = document.createElement('a');
-                a.innerHTML = pkg;
-                a.href = "https://github.com/gardenlinux/" + pkg + "/actions/workflows/build.yml";
-                
-                let pkgName = row.insertCell(0);
-                pkgName.appendChild(a);
-                
-                let pkgStatusTime = row.insertCell(1);
-                pkgStatusTime.innerHTML = packages[pkg].Time;
+            // group by status
+            const packageByStatus = Object.groupBy(packages, ({Status}) => Status)
+
+            // two loops, first by status then iterate over array
+            for (const status of ["success", "progress", "workFlowNotFound", "noRunFound", "brokenTimestamp", "stale", "failure"]) {
+            if (status in packageByStatus) {
+                for (const pkg of packageByStatus[status]) {
+                    let row = table.insertRow(0);
+                    row.classList.add(pkg.Status);
+
+                    let a = document.createElement('a');
+                    a.innerHTML = pkg.Name;
+                    a.href = "https://github.com/gardenlinux/" + pkg.Name + "/actions/workflows/build.yml";
+
+                    let pkgName = row.insertCell(0);
+                    pkgName.appendChild(a);
+
+                    let pkgStatusTime = row.insertCell(1);
+                    pkgStatusTime.innerHTML = pkg.Time;
+
+                }
+
+            }
             }
         }
 
